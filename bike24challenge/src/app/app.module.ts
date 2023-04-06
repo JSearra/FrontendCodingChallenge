@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductDropdownComponentComponent } from './product-dropdown-component/product-dropdown-component.component';
-import { ProductDropdownComponent } from './product-dropdown/product-dropdown.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { ProductSelectionComponent } from './product-selection/product-selection.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductDropdownComponentComponent,
-    ProductDropdownComponent,
-    ShoppingCartComponent
+
+    ShoppingCartComponent,
+    ProductSelectionComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

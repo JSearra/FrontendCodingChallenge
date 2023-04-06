@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingCartService } from '../services/shopping-cart.service';
-import { Product } from '../interfaces/product';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -8,23 +7,24 @@ import { Product } from '../interfaces/product';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
+  cartItems: any[] = [];
 
-  public shoppingCart: Product[] = [];
-
-  constructor(private shoppingCartService: ShoppingCartService) { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.shoppingCartService.getShoppingCart().subscribe(shoppingCart => {
-      this.shoppingCart = shoppingCart;
-    });
+    this.cartItems = this.cartService.getCartItems();
   }
 
-  public removeProductFromCart(productId: number): void {
-    this.shoppingCartService.removeProductFromCart(productId);
+  getTotal(): number {
+    return this.cartService.getCartTotal();
   }
 
-  public deleteCart(): void {
-    this.shoppingCartService.deleteCart();
+  removeItem(index: number): void {
+    this.cartService.removeItem(index);
   }
 
+  clearCart(): void {
+    this.cartService.clearCart();
+    this.cartItems = [];
+  }
 }
