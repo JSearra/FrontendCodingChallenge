@@ -35,9 +35,12 @@ export class ShoppingCartComponent implements OnInit {
     this.cartItems = [];
   }
 
+  // get total number of all items in cart, not unique
   getTotalQuantity(): number {
     return this.cartService.getTotalQuantity();
   }
+
+  // get unique number of products in car
   getTotalProducts(): number {
     return this.cartService.getTotalProducts();
   }
