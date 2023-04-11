@@ -44,6 +44,7 @@ export class CartService {
     this.cartItems = [];
   }
 
+  // get total number of all items in cart, not unique
   getTotalQuantity(): number {
     let totalQuantity = 0;
     for (const item of this.cartItems) {
@@ -52,10 +53,12 @@ export class CartService {
     return totalQuantity;
   }
 
+  // get unique number of products in cart
   getTotalProducts(): number {
     return this.cartItems.length;
   }
 
+  // cart limit is 10
   isCartFull(): boolean {
     return this.cartItems.length >= 10
   }
