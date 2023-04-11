@@ -1,29 +1,66 @@
 <div class="container">
-    <h2 class="mt-4">Shopping Cart</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="pt-2" *ngFor="let item of cartItems; index as i">
-          <td class="align-middle">{{ item.product.productName }}</td>
-          <td class="align-middle">{{ item.product.price | currency }}</td>
-          <td class="align-middle">{{ item.quantity }}</td>
-          <td class="align-middle">{{ item.total | currency }}</td>
-          <td>
-            <button class="btn btn-danger btn-sm" (click)="removeItem(i)">Remove</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-right mb-3">
-      <h4>Total: {{ getTotal() | currency }}</h4>
-      <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
+  <h2 class="mt-4">Shopping Cart</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="pt-2" *ngFor="let item of cartItems; index as i">
+        <td class="align-middle">{{ item.product.productName }}</td>
+        <td class="align-middle">{{ item.product.price | currency }}</td>
+        <td class="align-middle">{{ item.quantity }}</td>
+        <td class="align-middle">{{ item.total | currency }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="removeItem(i)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-right mb-5">
+    <h4 class="text-end pb-2">Total: {{ getTotal() | currency }}</h4>
+
+    <div class="row">
+      <div class="col-4">
+        <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
+
+      </div>
+      <div class="col-4">
+        <h5 class="pb-3">You may only put 10 unique products in the cart at a time</h5>
+        <div class="progress mt-3">
+          <div class="progress-bar" role="progressbar" [style.width]="(getTotalProducts() / 10) * 100 + '%'"
+            [attr.aria-valuenow]="getTotalProducts()" aria-valuemin="0" aria-valuemax="10"></div>
+        </div>
+      </div>
+      <div class="col-4 text-end">
+        <button type="button" class="btn btn-primary px-4 btn-lg" (click)="openModal('purchaseModal')" [disabled]="getTotalQuantity() === 0">Buy</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center pt-4">
+        <p class="text-danger" *ngIf="isCartFull()">Cart is full. You cannot add more than 10 different products.</p>
+      </div>
+    </div>
+
+    <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="purchaseModalLabel">Purchase Confirmation</h5>
+            <button type="button" class="btn-close" (click)="closeModal('purchaseModal')" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Thanks for your purchase!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal('purchaseModal')">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, RendererFactory2 } from '@angular/core';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -7,9 +7,16 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./shopping-cart.component.sass']
 })
 export class ShoppingCartComponent implements OnInit {
+  private renderer: Renderer2;
   cartItems: any[] = [];
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    rendererFactory: RendererFactory2,
+    private el: ElementRef,
+    private cartService: CartService
+  ) {
+    this.renderer = rendererFactory.createRenderer(null, null);
+  }
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
@@ -26,5 +33,28 @@ export class ShoppingCartComponent implements OnInit {
   clearCart(): void {
     this.cartService.clearCart();
     this.cartItems = [];
+  }
+
+  getTotalQuantity(): number {
+    return this.cartService.getTotalQuantity();
+  }
+  getTotalProducts(): number {
+    return this.cartService.getTotalProducts();
+  }
+
+  isCartFull(): boolean {
+    return this.cartService.isCartFull();
+  }
+
+  openModal(modalId: string) {
+    const modalElement = this.el.nativeElement.querySelector(`#${modalId}`);
+    this.renderer.addClass(modalElement, 'show');
+    this.renderer.setStyle(modalElement, 'display', 'block');
+  }
+
+  closeModal(modalId: string) {
+    const modalElement = this.el.nativeElement.querySelector(`#${modalId}`);
+    this.renderer.removeClass(modalElement, 'show');
+    this.renderer.setStyle(modalElement, 'display', 'none');
   }
 }

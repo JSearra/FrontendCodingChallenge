@@ -2,7 +2,7 @@
   <div class="row">
 
     <div class="col">
-      <img src="https://www.bike24.com/images/bike24-logo.svg" alt="Bike24 Logo" width="200" />
+      <!-- <img src="https://www.bike24.com/images/bike24-logo.svg" alt="Bike24 Logo" width="200" /> -->
     </div>
     <div class="p-2 mb-24">
       <h1>Bike24 Challenge</h1>
@@ -14,7 +14,8 @@
     <div class="col-3 pt-12">
       <div class="form-group">
         <label for="product" class="product_label">Select a Product</label>
-        <select id="product" class="form-select form-select-lg mt-1" [(ngModel)]="selectedProduct" name="selectedProduct">
+        <select id="product" class="form-select form-select-lg mt-1" [(ngModel)]="selectedProduct"
+          name="selectedProduct">
           <option *ngFor="let product of products" [ngValue]="product" class="p-4">
             {{ product.productName }} &nbsp;-&nbsp; {{ product.price | currency }}
           </option>
@@ -30,20 +31,21 @@
     </div>
 
     <div class="col-2">
-      
+
       <div class="form-group pt-4">
-        <input type="number" (keyup)="preventMoreThanMax($event)" id="input_quantity" class="form-control form-control-lg" min="1" size="6"
-          [max]="selectedProduct?.maxAmount" [(ngModel)]="quantity" name="quantity" />
-        
+        <input type="number" (keyup)="preventMoreThanMax($event)" id="input_quantity"
+          class="form-control form-control-lg" min="1" size="6" [max]="selectedProduct?.maxAmount"
+          [(ngModel)]="quantity" name="quantity" />
+
       </div>
     </div>
     <div class="col-2 pt-4">
-      <p class="pt-2" style="margin-left:-10px;"> 
-        x 
+      <p class="pt-2" style="margin-left:-10px;">
+        x
         <span class="currency_amount">
           {{selectedProduct.price | currency }}
-        </span> 
-        = 
+        </span>
+        =
         <span class="currency_amount">
           {{ selectedProduct?.price * quantity | currency}}
         </span>

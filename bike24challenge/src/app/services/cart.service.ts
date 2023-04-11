@@ -43,4 +43,20 @@ export class CartService {
   clearCart() {
     this.cartItems = [];
   }
+
+  getTotalQuantity(): number {
+    let totalQuantity = 0;
+    for (const item of this.cartItems) {
+      totalQuantity += item.quantity;
+    }
+    return totalQuantity;
+  }
+
+  getTotalProducts(): number {
+    return this.cartItems.length;
+  }
+
+  isCartFull(): boolean {
+    return this.cartItems.length >= 10
+  }
 }

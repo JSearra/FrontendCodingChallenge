@@ -25,21 +25,27 @@ export class ProductSelectionComponent implements OnInit {
   }
 
   addToCart(): void {
-    if (this.selectedProduct && this.quantity > 0 && this.quantity <= this.selectedProduct.maxAmount)  {
+
+    if (this.cartService.isCartFull()) {
+      alert('You cannot add more than 10 different products to the cart.');
+      return;
+    }
+    else if (this.selectedProduct && this.quantity > 0 && this.quantity <= this.selectedProduct.maxAmount) {
       this.cartService.addToCart(this.selectedProduct, this.quantity);
     } else {
+      // This is not necessary, because the input field is already limited to the maxAmount of the selected product
       alert('Invalid quantity. Please enter a valid quantity.');
     }
   }
 
   // Limits the input to the maxAmount of the selected product
-  preventMoreThanMax(event: { preventDefault: () => void; }){
-    let value=this.quantity;
-    if (value > this.selectedProduct.maxAmount){
+  preventMoreThanMax(event: { preventDefault: () => void; }) {
+    let value = this.quantity;
+    if (value > this.selectedProduct.maxAmount) {
       event.preventDefault()
       this.quantity = this.selectedProduct.maxAmount;
     }
   }
 
-  
+
 }
