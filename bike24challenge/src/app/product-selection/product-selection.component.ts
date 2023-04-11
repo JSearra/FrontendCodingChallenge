@@ -31,4 +31,15 @@ export class ProductSelectionComponent implements OnInit {
       alert('Invalid quantity. Please enter a valid quantity.');
     }
   }
+
+  // Limits the input to the maxAmount of the selected product
+  preventMoreThanMax(event: { preventDefault: () => void; }){
+    let value=this.quantity;
+    if (value > this.selectedProduct.maxAmount){
+      event.preventDefault()
+      this.quantity = this.selectedProduct.maxAmount;
+    }
+  }
+
+  
 }
